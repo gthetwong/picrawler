@@ -6,3 +6,6 @@ test/photo*
 test/scene/*
 backups/*
 **secret*
+.venv
+__pycache__/
+.pytest_cache/
