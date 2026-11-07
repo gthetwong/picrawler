@@ -1,5 +1,5 @@
-import threading
 import queue
+import threading
 import time
 
 
@@ -41,7 +41,9 @@ class RobotDriver:
             gait = "forward" if y > 0 else "backward"
         else:
             gait = "turn right" if x > 0 else "turn left"
-        fraction = (strength - self.DEADZONE) / (1.0 - self.DEADZONE)    # 0.0 at the deadzone edge, 1.0 at full push
+        fraction = (strength - self.DEADZONE) / (
+            1.0 - self.DEADZONE
+        )  # 0.0 at the deadzone edge, 1.0 at full push
         speed = round(self.SPEED_MIN + fraction * (self.SPEED_MAX - self.SPEED_MIN))
         return (gait, speed)
 

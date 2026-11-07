@@ -1,0 +1,4 @@
+[lint.isort]
+# picrawler is installed as a library on the Pi; driver is a module in this folder.
+known-third-party = ["picrawler"]
+known-first-party = ["driver"]

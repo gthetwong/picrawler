@@ -52,12 +52,16 @@ def d(clock):
 
 # --- _choose_move: direction ---
 
-@pytest.mark.parametrize("x, y, gait", [
-    (0.0, 1.0, "forward"),
-    (0.0, -1.0, "backward"),
-    (-1.0, 0.0, "turn left"),
-    (1.0, 0.0, "turn right"),
-])
+
+@pytest.mark.parametrize(
+    "x, y, gait",
+    [
+        (0.0, 1.0, "forward"),
+        (0.0, -1.0, "backward"),
+        (-1.0, 0.0, "turn left"),
+        (1.0, 0.0, "turn right"),
+    ],
+)
 def test_full_push_picks_gait_at_max_speed(d, x, y, gait):
     d.drive(x, y)
     assert d._choose_move() == (gait, RobotDriver.SPEED_MAX)
@@ -77,6 +81,7 @@ def test_equal_axes_prefer_walking_over_turning(d):
 
 # --- _choose_move: deadzone and speed ---
 
+
 def test_inside_deadzone_stands_still(d):
     d.drive(0.1, -0.2)
     assert d._choose_move() is None
@@ -94,6 +99,7 @@ def test_speed_scales_with_push(d):
 
 # --- drive: clamping ---
 
+
 def test_out_of_range_input_is_clamped(d):
     d.drive(0.0, 5.0)
     assert d._choose_move() == ("forward", RobotDriver.SPEED_MAX)
@@ -102,6 +108,7 @@ def test_out_of_range_input_is_clamped(d):
 
 
 # --- _choose_move: safety cutoff ---
+
 
 def test_no_input_yet_stands_still(d):
     assert d._choose_move() is None
@@ -127,6 +134,7 @@ def test_new_input_after_timeout_resumes(d, clock):
 
 
 # --- run ---
+
 
 def test_queued_actions_run_before_walking(clock):
     d = RobotDriver(None)
